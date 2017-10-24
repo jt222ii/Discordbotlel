@@ -53,15 +53,14 @@ bot.on('message', (user, userID, channelID, message, evt) => {
                     to: userID,
                     message: 'Printing the last '+messagesToPrint+' messages!'
                 }); 
-                sendDajmList(log.slice(), userID, channelID, messagesToPrint);
+                sendDajmList(log.slice().reverse(), userID, channelID, messagesToPrint);
             break;
          }
      }
 });
 
-const sendDajmList = (entries, userID, channelID) => {
+const sendDajmList = (entries, userID, channelID, maxMessages) => {
         let maxMessageLength = 43*25;//one entry is 43 characters. 
-        let maxMessages = 50;
         let mess = '```';
         while(mess.length+86 < maxMessageLength && entries.length > 0){
             let entry = entries.shift();
@@ -74,6 +73,6 @@ const sendDajmList = (entries, userID, channelID) => {
         }); 
         if(entries.length != 0)
         {
-            sendDajmList(entries, userID, channelID);
+            sendDajmList(entries, userID, channelID, maxMessages);
         }
 }
